@@ -1,7 +1,6 @@
 package fr.spirotron.spirotest;
 
 import android.app.Activity;
-import android.content.Context;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
@@ -36,11 +35,7 @@ public class MainActivity extends Activity implements OnTouchListener {
 	}
 	
 	public void playSound(View view) {
-	    AudioManager mgr = (AudioManager)view.getContext().getSystemService(Context.AUDIO_SERVICE);
-	    float streamVolumeCurrent = mgr.getStreamVolume(AudioManager.STREAM_MUSIC);
-	    float streamVolumeMax = mgr.getStreamMaxVolume(AudioManager.STREAM_MUSIC);    
-	    float volume = streamVolumeCurrent / streamVolumeMax;
-		soundPool.play(soundId, volume, volume, 1, 0, 1f);
+		soundPool.play(soundId, 1, 1, 1, 0, 1f);
 	}
 
 	@Override
