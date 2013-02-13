@@ -5,10 +5,14 @@ import android.content.Context;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
+import android.widget.ImageView;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements OnTouchListener {
 	private SoundPool soundPool;
 	private int soundId;
 	
@@ -19,6 +23,9 @@ public class MainActivity extends Activity {
 		
 		soundPool = new SoundPool(4, AudioManager.STREAM_MUSIC, 100);
 		soundId = soundPool.load(getApplicationContext(), R.raw.click, 1);
+		
+		ImageView view = (ImageView) findViewById(R.id.imageView1);
+		view.setOnTouchListener(this);
 	}
 
 	@Override
@@ -34,5 +41,18 @@ public class MainActivity extends Activity {
 	    float streamVolumeMax = mgr.getStreamMaxVolume(AudioManager.STREAM_MUSIC);    
 	    float volume = streamVolumeCurrent / streamVolumeMax;
 		soundPool.play(soundId, volume, volume, 1, 0, 1f);
+	}
+
+	@Override
+	public boolean onTouch(View v, MotionEvent event) {
+		Log.d("TEST", "motionevent: "+event.getAction());
+		
+		switch (event.getAction()) {
+			case MotionEvent.ACTION_DOWN:
+				playSound(v);
+				return true;
+		}
+		
+		return false;
 	}
 }
